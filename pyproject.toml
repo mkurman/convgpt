@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "convgpt"
+version = "0.1.0"
+description = "vLLM and SGLang module for ConvGPT"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "transformers>=4.36.0",
+    "torch>=2.1.0",
+    "einops"
+]
+
+[project.optional-dependencies]
+vllm = ["vllm>=0.6.0"]
+sglang = ["sglang[all]"]
+all = ["vllm>=0.6.0", "sglang[all]"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["convgpt*"]
+
+[project.entry-points."vllm.general_plugins"]
+convgpt = "convgpt.vllm:register"
